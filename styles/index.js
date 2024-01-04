@@ -1,13 +1,17 @@
 import { StyleSheet } from "react-native"
+import { Typography } from "./constants"
+import {primary700} from "./Colors"
 
-const primary="#D9D9D9"
 
 const styles = StyleSheet.create({
 test:{
-
+    fontWeight:"bold"
 }
 }
 )
+
+
+// layouts
 export const columns={
     display:"flex",
     flexDirection:"column",
@@ -29,17 +33,43 @@ export const columm35={flex:.35}
 export const flex1={flex:1}
 
 
-export const txt100={fontSize:16}
-export const txt200={fontSize:20}
-export const txt300={fontSize:24}
-export const txt400={fontSize:32}
-export const txt500={fontSize:36}
-export const txt600={fontSize:40}
-export const txt700={fontSize:48}
-export const txt800={fontSize:64}
+
+// Typography styles
+export const Heading01={
+    fontFamily:Typography.mainFont,
+    fontSize:Typography.headind01,
+    fontWeight:"bold",
+    color:primary700,
+}
+export const Heading02={
+    fontFamily:Typography.mainFont,
+    fontSize:Typography.headind02,
+    fontWeight:"bold"
+}
+
+export const Heading03={
+    fontFamily:Typography.mainFont,
+    fontSize:Typography.headind03,
+    fontWeight:"bold"
+}
+
+export const Paragraph01={
+    fontFamily:Typography.mainFont,
+    fontSize:Typography.paragraph01,
+    fontWeight:100
+}
+export const Paragraph02={
+    fontFamily:Typography.mainFont,
+    fontSize:Typography.paragraph02,
+    fontWeight:100
+}
+export const Paragraph03={
+    fontFamily:Typography.mainFont,
+    fontSize:Typography.paragraph03,
+    fontWeight:100
+}
 
 
-export const txtBold={fontWeight:"bold"}
 
 
 

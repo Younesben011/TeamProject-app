@@ -15,7 +15,7 @@ const Login = () => {
     }
   return (
     <View style={[columns]}>
-      <Text>Login</Text>
+      <Text style={{fontFamily:"WhyteInktrap-Bold"}}>Login</Text>
       <YtextInput onchange={setEmail} placeholder="email or username"/>
       <YtextInput onchange={setPassword} placeholder="password"/>
       <Button title='Login' onPress={login} />
