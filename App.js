@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View,TextInput } from 'react-native';
+import { StyleSheet, Text, View,TextInput, SafeAreaView } from 'react-native';
 import Register from './screens/Register';
 import { AuthProvider, useAuth } from './app/context/AuthContext';
 import {NavigationContainer} from "@react-navigation/native"
@@ -11,6 +11,7 @@ import {useFonts}from 'expo-font'
 import Welcome from './screens/Welcome';
 import AppLoading from 'expo-app-loading';
 import { useState } from 'react';
+import { primary700 } from './styles/Colors';
 // import * as SplashScreen from "expo-splash-screen"
 
 const  Stack = createNativeStackNavigator();
@@ -32,9 +33,12 @@ export default function App() {
     return <SplashScreen/>
 
   return (
+
       <AuthProvider>
+      <StatusBar backgroundColor={primary700} barStyle={"dark-content"}  />
         <Layout></Layout>
-      </AuthProvider> 
+      </AuthProvider>
+
   );
 }
 
@@ -46,10 +50,10 @@ export const  Layout =()=>{
     <NavigationContainer>
         <Stack.Navigator screenOptions={{headerShown:false}}>
           <Stack.Screen name="welcome" component={Welcome}></Stack.Screen> 
-          <Stack.Screen  name="SplashScreen" component={SplashScreen}></Stack.Screen>
-          <Stack.Screen  name="home" component={Home}></Stack.Screen>
           <Stack.Screen name="login" component={Login}></Stack.Screen>          
+          <Stack.Screen  name="home" component={Home}></Stack.Screen>
           <Stack.Screen name="register" component={Register}></Stack.Screen> 
+          <Stack.Screen  name="SplashScreen" component={SplashScreen}></Stack.Screen>
         </Stack.Navigator>
     </NavigationContainer>
   )

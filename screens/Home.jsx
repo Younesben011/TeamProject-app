@@ -1,6 +1,7 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text, Button, SafeAreaView } from 'react-native'
 import React, { useEffect } from 'react'
 import { useAuth } from '../app/context/AuthContext'
+import { Heading01 } from '../styles'
 
 const Home = ({navigation}) => {
     const {onlogout,authState} = useAuth()
@@ -11,11 +12,19 @@ const Home = ({navigation}) => {
       }
       isAuth()
     },[])
-  return (
-    <View>
-      <Text style={{fontFamily:'WhyteInktrap-Black',fontSize:20,padding:30}}>Home</Text>
-      <Button title='logout' onPress={()=>{onlogout();}}/>
-    </View>
+    const logout = async()=>{
+      const respond = await onlogout();
+      console.log(respond);
+      if(respond){
+        navigation.replace("welcome")
+        navigation.navigate("login")
+      }
+    }
+      return (
+    <SafeAreaView>
+      <Text style={Heading01}>Home</Text>
+      <Button title='logout' onPress={logout}/>
+    </SafeAreaView>
   )
 }
 

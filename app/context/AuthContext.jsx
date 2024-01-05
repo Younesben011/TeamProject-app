@@ -76,7 +76,6 @@ export const  AuthProvider=({children})=>{
 
     const logout = async()=>{
         // Delete token from storage
-        console.log("logout");
         await SecureStore.deleteItemAsync("token")
         await SecureStore.deleteItemAsync("id")
         await SecureStore.deleteItemAsync("role")
@@ -91,6 +90,7 @@ export const  AuthProvider=({children})=>{
             user_id:null,
             role:null
         })
+        return true
     }
 
     const value={

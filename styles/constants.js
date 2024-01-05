@@ -5,6 +5,7 @@ export const fontBlack="WhyteBlack"
 export const fontBold="WhyteBold"
 export const fontRegular="WhyteRegular"
 
+// Typography
 export const Typography={
 
     headind01:{
