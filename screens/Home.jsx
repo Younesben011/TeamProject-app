@@ -1,13 +1,20 @@
 import { View, Text, Button } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAuth } from '../app/context/AuthContext'
 
 const Home = ({navigation}) => {
-    const {onlogout} = useAuth()
+    const {onlogout,authState} = useAuth()
+    useEffect(()=>{
+      const isAuth=()=>{
+        if(!authState.authenticated)
+          navigation.navigate("welcome")
+      }
+      isAuth()
+    },[])
   return (
     <View>
-      <Text>Home</Text>
-      <Button title='logout' onPress={()=>{onlogout(); navigation.navigate("login")}}/>
+      <Text style={{fontFamily:'WhyteInktrap-Black',fontSize:20,padding:30}}>Home</Text>
+      <Button title='logout' onPress={()=>{onlogout();}}/>
     </View>
   )
 }

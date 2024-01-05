@@ -1,34 +1,35 @@
 
 
 
-
+export const fontBlack="WhyteBlack"
+export const fontBold="WhyteBold"
+export const fontRegular="WhyteRegular"
 
 export const Typography={
-    mainFont:"whyte",
 
     headind01:{
         fontSize:24,
-        fontWieght:"bold"
+        fontFamily:fontBold,
     },
     headind02:{
         fontSize:20,
-        fontWieght:"bold"
+        fontFamily:fontBold,
     },
     headind03:{
         fontSize:18,
-        fontWieght:"bold"
+        fontFamily:fontBold,
     },
     paragraph01:{
         fontSize:18,
-        fontWieght:"bold"
+        fontFamily:fontRegular,
     },
     paragraph02:{
         fontSize:14,
-        fontWieght:"bold"
+        fontFamily:fontRegular,
     },
     paragraph03:{
         fontSize:11,
-        fontWieght:"bold"
+        fontFamily:fontRegular,
     }
 
 }

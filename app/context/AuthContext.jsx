@@ -10,20 +10,21 @@ export const useAuth=()=>{
 }
 
 export const  AuthProvider=({children})=>{
-    const [authState,setAuthState]=useState({token:null,authenticated:null,user_id:null,role:null});
-
+    const [authState,setAuthState]=useState({token:null,authenticated:false,user_id:null,role:null});
     useEffect(()=>{
         const loadToken = async ()=>{
-            const token = SecureStore.getItemAsync("token");
+            // await SecureStore.setItemAsync("token",respond.data.token)
+            const token = await SecureStore.getItemAsync("token");
+            const id = await SecureStore.getItemAsync("user_id");
+            const role = await SecureStore.getItemAsync("role");
             if(!token)
                 return
-            axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`
+            axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
             setAuthState({
-                token:res.data.token,
+                token:token,
                 authenticated:true,
-                user_id:res.data.user_id,
-                role:res.data.usertype
-
+                user_id:id,
+                role
             })
         }
         loadToken()
@@ -50,16 +51,23 @@ export const  AuthProvider=({children})=>{
     
     const login = async (email,password)=>{
         try {
-            const res = await axios.post(`${APIURL}/login`,{email,password})
-            setAuthState({
-                token:res.data.token,
-                authenticated:true,
-                user_id:res.data.user_id,
-                role:res.data.usertype
-            })
-            axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`
-            await SecureStore.setItemAsync("token",res.data.token)
-            return res
+            const respond = await axios.post(`${APIURL}/login`,{email,password})
+            authState.token=respond.data.token
+            authState.authenticated=true
+            authState.user_id=respond.data.user_id
+            authState.role=respond.data.role
+
+            setAuthState({...authState});
+            if(respond.status!=200)
+                return {error:true,msg:"error"}
+            await SecureStore.setItemAsync("token",respond.data.token)
+            await SecureStore.setItemAsync("id",respond.data.user_id)
+            await SecureStore.setItemAsync("role",respond.data.role)
+            axios.defaults.headers.common["Authorization"] = `Bearer ${respond.data.token}`
+
+
+
+            return respond.data
 
         } catch (error) {
             return {error:true,msg:"error"}
@@ -70,9 +78,11 @@ export const  AuthProvider=({children})=>{
         // Delete token from storage
         console.log("logout");
         await SecureStore.deleteItemAsync("token")
+        await SecureStore.deleteItemAsync("id")
+        await SecureStore.deleteItemAsync("role")
 
         // Update HTTP headers
-        axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.token}`
+        axios.defaults.headers.common["Authorization"] = ""
 
         //Reset Auth state
         setAuthState({
@@ -87,7 +97,7 @@ export const  AuthProvider=({children})=>{
         onRegister:register,
         onlogin:login,
         onlogout:logout,
-        authState:authState
+        authState
     };
 
     
